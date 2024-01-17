@@ -1,25 +1,26 @@
 #include<stdio.h>
 int main()
 {
-    int a[100],i,j,n;
+    int a[100],i,j,n,t;
+    printf("ENTER SIZE: ");
     scanf("%d",&n);
+    printf("ENTER ARRAY ELEMENTS: ");
     for(i=0;i<n;i++)
-    {
-        scanf("%d",&a[i]);
-    }
+    scanf("%d",&a[i]);
     for(i=1;i<n;i++)
     {
         j=i;
         while(j>0 && a[j]<a[j-1])
         {
-            int t=a[j];
+            t=a[j];
             a[j]=a[j-1];
             a[j-1]=t;
             j--;
         }
     }
+    printf("ARRAY AFTER INSERTON SORT: ");
     for(i=0;i<n;i++)
     {
-        printf("%d",a[i]);
+        printf("%d\t",a[i]);
     }
 }
