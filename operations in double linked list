@@ -1,0 +1,157 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+struct node
+{
+    struct node*prev;
+    int data;
+    struct node*next;
+}*
+head=NULL,*p,*t,*newnode;
+void create_dll()
+{
+    int n,ele,i;
+    printf("Enter the size of SLL:");
+    scanf("%d",&n);
+    for(i=1;i<=n;i++)
+    {
+        printf("Enter the element: ");
+        scanf("%d",&ele);
+        newnode=(struct node *)malloc(sizeof(struct node));
+        newnode->data=ele;
+        newnode->next=NULL;
+        newnode->prev=NULL;
+        if(head==NULL)
+        {
+            head=newnode;
+            p=newnode;
+        }
+        else
+        { 
+            for(p=head;p->next!=NULL;p=p->next);
+            p->next=newnode;
+            newnode->prev=p;
+            p=newnode;
+        }
+    }
+}
+void display_dll()
+{
+    if(head==NULL)
+    printf("the sllis empty");
+    else
+    {
+        for(p=head;p!=NULL;p=p->next)
+        {
+            printf("%d ->",p->data);
+        }
+    }
+}
+void insert_at_end_dll()
+{
+    int ele;
+    printf("enter the element:");
+    scanf("%d",&ele);
+    newnode=(struct node *)malloc(sizeof(struct node));
+    newnode->data=ele;
+    newnode->next=NULL;
+    for(p=head;p->next!=NULL;p=p->next);
+    p->next=newnode;
+    newnode->prev=p;
+    p=newnode;
+}
+void insert_at_begin_dll()
+{
+    int ele;
+    printf("enter the element: ");
+    scanf("%d",&ele);
+    newnode=(struct node *)malloc(sizeof(struct node));
+    newnode->data=ele;
+    newnode->prev=NULL;
+    p=head;
+    head=newnode;
+    newnode->next=p;
+    p=newnode;
+}
+void insert_at_any_postion()
+{
+    int i,pos,ele;
+    printf("enter the element and position: ");
+    scanf("%d%d",&ele,&pos);
+    newnode=(struct node *)malloc(sizeof(struct node));
+    newnode->data=ele;
+    for(p=head,i=1;i<pos;p=p->next,i++)
+    t=p;
+    t->next=newnode;
+    newnode->next=p;
+    newnode->prev=t;
+    p->prev=newnode;
+}
+void delete_at_end()
+{
+    int ele;
+    for(p=head;p->next!=NULL;p=p->next)
+    t=p;
+    ele=p->data;
+    free(p);
+    t->next=NULL;
+    p=t;
+    printf("the deleted element form list: %d",ele);
+}
+void delete_at_begin()
+{
+    int ele;
+    p=head;
+    ele=p->data;
+    head=p->next;
+    p->prev=NULL;
+    free(p);
+    p=head;
+    printf("the deleted element is: %d",ele);
+}
+void delete_at_any()
+{
+    int i,pos,ele;
+    printf("Enter the position to be deleted:");
+    scanf("%d",&pos);
+    for(i=1,p=head;i<pos;i++,p=p->next)
+    t=p;
+    t->next=p->next;
+    p->next=t->prev;
+    ele=p->data;
+    free(p);
+    printf("the deleted element is: %d",ele);
+}
+int main()
+{
+    int cho;
+    while(1)
+    {
+        printf("\n*** MAIN MENU ***\n");
+        printf("\n1.create dll\n2.display dll\n3.insert at end dll\n4.insert at begin dll\n5.insert at any position dll\n6.delete at end dll\n7.delete at begin dll\n8.delete at any position dll\n9.exit");
+        printf("\nEnter a choice:");
+        scanf("%d",&cho);
+        switch(cho)
+        {
+            case 1:create_dll();
+            break;
+            case 2:display_dll();
+            break;
+            case 3:insert_at_end_dll();
+            break;
+            case 4:insert_at_begin_dll();
+            break;
+            case 5:insert_at_any_postion();
+            break;
+            case 6:delete_at_end();
+            break;
+            case 7:delete_at_begin();
+            break;
+            case 8:delete_at_any();
+            break;
+            case 9:exit(0);
+            default : printf("\nenter number between 1 to 9");
+        }
+    }
+    return 0;
+}
