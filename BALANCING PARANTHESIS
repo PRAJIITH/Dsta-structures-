@@ -1,0 +1,47 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define size 100
+int top=-1;
+char stk[100];
+void push(char x)
+{
+    top=top+1;
+    stk[top]=x;
+}
+void pop()
+{
+    top=top-1;
+}
+int main()
+{
+    int i,n;
+    char s[100];
+    printf("ENTER A STRING: ");
+    scanf("%s",s);
+    n=strlen(s);
+    for(i=0;i<n;i++)
+    {
+        if(s[i]=='('||s[i]=='{'||s[i]=='[')
+        {
+            push(s[i]);
+        }
+        else if(stk[top]=='('&& s[i]==')'||stk[top]=='{'&& s[i]=='}'||stk[top]=='['&& s[i]==']')
+        {
+            pop();
+        }
+        else
+        {
+            continue;
+        }
+    }
+    if(top==-1)
+    {
+        printf("THE GIVEN STRING IS BALANCED");
+    }
+    else
+    {
+        printf("THE GIVEN STRING IS UNBALANCED");
+    }
+    return 0;
+}
